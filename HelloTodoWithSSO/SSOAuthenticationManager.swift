@@ -65,6 +65,7 @@ class SSOAuthenticationManager{
 				self.authorize()
 			} else {
 				let error = NSError(domain: "com.ibm.bluemix.sso", code: 1, userInfo: [NSLocalizedDescriptionKey:"Failed to authenticate with supplied credentials"])
+				self.logger.error(error.description)
 				self.completionHandler(nil, error)
 			}
 		}

@@ -34,8 +34,19 @@ class TodoFacade{
 		}
 	}
 	
-	static func addNewItem(callback:([TodoItem])){
+	static func addNewItem(todoItem:TodoItem, completionHandler:(NSError?) -> Void){
 		TodoFacade.logger.debug("addNewItem");
+		let req = Request(url: "/api/items", method: HttpMethod.POST)
+		req.headers = ["Content-Type":"application/json", "Accept":"application/json"];
+		
+		req.sendString(todoItem.toJson()!.rawString()!) { (response, error) -> Void in
+			if let err = error {
+				logger.error(err.description)
+				completionHandler(err);
+			} else {
+				completionHandler(nil)
+			}
+		}
 	}
 
 	static func updateItem(todoItem:TodoItem, completionHandler:(NSError?) -> Void){
@@ -56,8 +67,19 @@ class TodoFacade{
 
 	
 	
-	static func deleteItem(callback:([TodoItem])){
+	static func deleteItem(itemId:NSInteger, completionHandler:(NSError?) -> Void){
 		TodoFacade.logger.debug("deleteItem");
+		let req = Request(url: "/api/items/" + itemId.description, method: HttpMethod.DELETE)
+		req.headers = ["Content-Type":"application/json", "Accept":"application/json"];
+		
+		req.sendWithCompletionHandler() { (response, error) -> Void in
+			if let err = error {
+				logger.error(err.description)
+				completionHandler(err);
+			} else {
+				completionHandler(nil)
+			}
+		}
 	}
 
 }

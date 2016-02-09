@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		becomeFirstResponder()
 		loadItems()
 	}
 	
@@ -46,12 +47,112 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 					self.showError(err.localizedDescription)
 				} else {
 					self.todoItems = items!;
-					self.dispatchOnMainQueueAfterDelay(0, closure: {
+					self.dispatchOnMainQueueAfterDelay(0) {
 						self.tableView.reloadData()
-					})
+					}
 				}
 			}
 		})
+	}
+	
+	@IBAction
+	func onAddNewItemClicked(){
+		logger.debug("onAddNewItemClicked")
+		let alert = UIAlertController(title: "Add new todo", message: "Enter todo text", preferredStyle: UIAlertControllerStyle.Alert)
+		alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+			textField.placeholder = "Todo text"
+			textField.secureTextEntry = false
+			textField.text = ""
+		})
+
+		alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler:{ (action:UIAlertAction) -> Void in
+			let itemText = alert.textFields![0].text! as String
+			let todoItem = TodoItem(id: 0, text: itemText, isDone: false)
+			SwiftSpinner.show("Loading items...", animated: true)
+			TodoFacade.addNewItem(todoItem, completionHandler: {(error:NSError?) in
+				if let err = error{
+					SwiftSpinner.hide(){
+						self.showError(err.localizedDescription)
+					}
+				} else {
+					self.loadItems()
+				}
+			})
+		}))
+			
+		alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler:{ (action:UIAlertAction) -> Void in
+		}))
+
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	// onEditItemClicked
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		logger.debug("onEditItemClicked " + indexPath.row.description)
+		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+		let clickedTodoItem = todoItems[indexPath.row]
+		
+		let alert = UIAlertController(title: "Edit todo item", message: "Enter todo text", preferredStyle: UIAlertControllerStyle.Alert)
+		alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+			textField.placeholder = "Todo text"
+			textField.secureTextEntry = false
+			textField.text = clickedTodoItem.text
+		})
+		
+		alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default, handler:{ (action:UIAlertAction) -> Void in
+			let itemText = alert.textFields![0].text! as String
+			let todoItem = TodoItem(id: clickedTodoItem.id, text: itemText, isDone: clickedTodoItem.isDone)
+			SwiftSpinner.show("Loading items...", animated: true)
+			TodoFacade.updateItem(todoItem, completionHandler: {(error:NSError?) in
+				if let err = error{
+					SwiftSpinner.hide(){
+						self.showError(err.localizedDescription)
+					}
+				} else {
+					self.loadItems()
+				}
+			})
+		}))
+		
+		alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler:{ (action:UIAlertAction) -> Void in
+		}))
+		
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	@IBAction
+	func onTodoItemLongPressed(sender:UILongPressGestureRecognizer){
+		if (sender.state == UIGestureRecognizerState.Began){
+			let todoCell = sender.view as! TodoCell
+			onDeleteClicked(rowIndex: todoCell.rowIndex)
+		}
+		
+	}
+	
+	func onDeleteClicked(rowIndex rowIndex:NSInteger){
+		print("onDeleteClicked :: " + rowIndex.description)
+		let clickedTodoItem = todoItems[rowIndex]
+		
+		let alert = UIAlertController(title: "Delete todo item", message: "Would you like to delete this todo?", preferredStyle: UIAlertControllerStyle.Alert)
+
+		alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler:{ (action:UIAlertAction) -> Void in
+			SwiftSpinner.show("Loading items...", animated: true)
+			TodoFacade.deleteItem(clickedTodoItem.id, completionHandler: {(error:NSError?) in
+				if let err = error{
+					SwiftSpinner.hide(){
+						self.showError(err.localizedDescription)
+					}
+				} else {
+					self.loadItems()
+				}
+			})
+		}))
+		
+		alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler:{ (action:UIAlertAction) -> Void in
+		}))
+		self.presentViewController(alert, animated: true, completion: nil)
+
+		
 	}
 	
 	func onIsDoneClicked(rowIndex rowIndex:NSInteger){
@@ -73,17 +174,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 	
 	func onAuthenticationChallengeReceived(ssoAuthenticationManager: SSOAuthenticationManager) {
 		logger.debug("onAuthenticationChallengeReceived")
+
 		let alert = UIAlertController(title: "Login", message: "Please provide your credentials to login", preferredStyle: UIAlertControllerStyle.Alert)
 		
 		alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-			textField.placeholder = "Enter username:"
+			textField.placeholder = "username"
 			textField.secureTextEntry = false
-			textField.text = "demo"
+//			textField.text = "demo"
 		})
 		alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-			textField.placeholder = "Enter password:"
+			textField.placeholder = "password"
 			textField.secureTextEntry = true
-			textField.text = "demo1"
+//			textField.text = "demo"
 		})
 		
 		alert.addAction(UIAlertAction(title: "Login", style: UIAlertActionStyle.Default, handler:{ (action:UIAlertAction) -> Void in
@@ -108,13 +210,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 	}
 	
 	func showError(errText:String){
-		dispatchOnMainQueueAfterDelay(0){
+		dispatchOnMainQueueAfterDelay(0) {
 			SwiftSpinner.show(errText, animated: false)
 		}
 		
-		dispatchOnMainQueueAfterDelay(3, closure: {
+		dispatchOnMainQueueAfterDelay(3) {
 			SwiftSpinner.hide()
-		})
+		}
 	}
 	
 	func dispatchOnMainQueueAfterDelay(delay:Double, closure:()->()) {
@@ -136,14 +238,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		cell.viewController = self;
 		let todoItem = todoItems[indexPath.row]
 		cell.loadItem(text: todoItem.text, isDone: todoItem.isDone, rowIndex: indexPath.row)
+		let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("onTodoItemLongPressed:"));
+		cell.addGestureRecognizer(longPressGestureRecognizer)
 		
 		return cell
 	}
 	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		logger.debug("selected " + indexPath.row.description)
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	override func canBecomeFirstResponder() -> Bool {
+		return true
 	}
-
+	
+	override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+		logger.debug("cleaning authorization data")
+		BMSClient.sharedInstance.sharedAuthorizationManager.clearAuthorizationData()
+		showError("Authorization data cleared")
+	}
+	
 }
 

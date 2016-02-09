@@ -15,11 +15,15 @@
 		3A2A8F6F1C64FB1600D6CD57 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A8F6E1C64FB1600D6CD57 /* TodoItem.swift */; };
 		3A2A8F711C64FD0400D6CD57 /* TodoFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A8F701C64FD0400D6CD57 /* TodoFacade.swift */; };
 		3A92973A1C64418C00D8B0FE /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A9297391C64418C00D8B0FE /* TodoCell.xib */; };
+		3AC5E7491C6A783800487376 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC5E7471C6A783800487376 /* Icon-60@2x.png */; };
+		3AC5E74A1C6A783800487376 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC5E7481C6A783800487376 /* Icon-60@3x.png */; };
 		3AF213061C5FF083009454D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF213051C5FF083009454D4 /* AppDelegate.swift */; };
 		3AF213081C5FF083009454D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF213071C5FF083009454D4 /* ViewController.swift */; };
 		3AF2130B1C5FF083009454D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF213091C5FF083009454D4 /* Main.storyboard */; };
 		3AF2130D1C5FF083009454D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AF2130C1C5FF083009454D4 /* Assets.xcassets */; };
 		3AF213101C5FF083009454D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF2130E1C5FF083009454D4 /* LaunchScreen.storyboard */; };
+		3AF8B8971C6A66B1006FB5D0 /* loopback.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF8B8951C6A66B1006FB5D0 /* loopback.png */; };
+		3AF8B8981C6A66B1006FB5D0 /* sso-service.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF8B8961C6A66B1006FB5D0 /* sso-service.png */; };
 		B79AE84C8FB8426BFDEA117F /* Pods_HelloTodoWithSSO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C0EB19E9ACEA5CE3865715 /* Pods_HelloTodoWithSSO.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +37,8 @@
 		3A2A8F6E1C64FB1600D6CD57 /* TodoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		3A2A8F701C64FD0400D6CD57 /* TodoFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFacade.swift; sourceTree = "<group>"; };
 		3A9297391C64418C00D8B0FE /* TodoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
+		3AC5E7471C6A783800487376 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		3AC5E7481C6A783800487376 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
 		3AF213021C5FF083009454D4 /* HelloTodoWithSSO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloTodoWithSSO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF213051C5FF083009454D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AF213071C5FF083009454D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +46,8 @@
 		3AF2130C1C5FF083009454D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AF2130F1C5FF083009454D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AF213111C5FF083009454D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AF8B8951C6A66B1006FB5D0 /* loopback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loopback.png; sourceTree = "<group>"; };
+		3AF8B8961C6A66B1006FB5D0 /* sso-service.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sso-service.png"; sourceTree = "<group>"; };
 		63C0EB19E9ACEA5CE3865715 /* Pods_HelloTodoWithSSO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloTodoWithSSO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC798EE493D59E689A315486 /* Pods-HelloTodoWithSSO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloTodoWithSSO.release.xcconfig"; path = "Pods/Target Support Files/Pods-HelloTodoWithSSO/Pods-HelloTodoWithSSO.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +77,10 @@
 		3A244D631C5FFA2B00778B06 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3AC5E7471C6A783800487376 /* Icon-60@2x.png */,
+				3AC5E7481C6A783800487376 /* Icon-60@3x.png */,
+				3AF8B8951C6A66B1006FB5D0 /* loopback.png */,
+				3AF8B8961C6A66B1006FB5D0 /* sso-service.png */,
 				3A244D5F1C5FFA2400778B06 /* checkbox1.png */,
 				3A244D601C5FFA2400778B06 /* checkbox2.png */,
 			);
@@ -191,11 +203,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A244D621C5FFA2400778B06 /* checkbox2.png in Resources */,
+				3AC5E7491C6A783800487376 /* Icon-60@2x.png in Resources */,
 				3A244D611C5FFA2400778B06 /* checkbox1.png in Resources */,
 				3AF213101C5FF083009454D4 /* LaunchScreen.storyboard in Resources */,
 				3AF2130D1C5FF083009454D4 /* Assets.xcassets in Resources */,
 				3AF2130B1C5FF083009454D4 /* Main.storyboard in Resources */,
+				3AF8B8981C6A66B1006FB5D0 /* sso-service.png in Resources */,
+				3AF8B8971C6A66B1006FB5D0 /* loopback.png in Resources */,
 				3A92973A1C64418C00D8B0FE /* TodoCell.xib in Resources */,
+				3AC5E74A1C6A783800487376 /* Icon-60@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
