@@ -1,1 +1,1 @@
-# bms-clientsdk-swift-ssoauthmanager
+THIS PROJECT IS DISCONTINUED AND WILL BE REMOVED SOON.
